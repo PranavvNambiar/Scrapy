@@ -12,7 +12,13 @@ BOT_NAME = "bookscraper"
 SPIDER_MODULES = ["bookscraper.spiders"]
 NEWSPIDER_MODULE = "bookscraper.spiders"
 
-
+#This will automatically create the file with the specified file name and format
+#We do not need to do -O <....json/csv>
+FEEDS = {
+   'book_data.json' : {
+      'format' : 'json'
+   }
+}
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "bookscraper (+http://www.yourdomain.com)"
 
@@ -63,7 +69,8 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   "bookscraper.pipelines.BookscraperPipeline": 300,
+   "bookscraper.pipelines.BookscraperPipeline": 300, #Number is the order in the item pipeline which have precedence, the lower the number, the higher the importance
+   "bookscraper.pipelines.saveToMySQLPipeline": 400,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

@@ -8,6 +8,15 @@ class BookspiderSpider(scrapy.Spider):
     start_urls = ["https://books.toscrape.com"]
     #Can contain multiple urls
 
+    #This will overwrite the setting in the setting file(setting.py) if needed
+    #* We need to specify the 'overwrite':True in the section
+    custom_settings = {
+        'FEEDS': {
+            'booksdata.json' : {
+                'format' : 'json', 'overwrite': True
+            }
+        }
+    }
     def parse(self, response):
         books = response.css('article.product_pod')
         for book in books:
